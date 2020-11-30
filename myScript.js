@@ -29,7 +29,7 @@ window.addEventListener('load', function() {
   chart.container("wordCloudWords");
   chart.draw();
 
-  //Add listener - Add 'clicked' word
+  //Add listener - Add 'clicked' word to search terms
   chart.listen("pointClick", function(e){
     ingredient = e.point.get("x")
     addIngredient(ingredient)
@@ -38,40 +38,120 @@ window.addEventListener('load', function() {
   //Load recipies & populate recipe cards
   loadRecipes()
 
+  //Tie the Filter button to a function
+  document.getElementById("filterButton").addEventListener("click", filterCards);
+  document.getElementById("clearButton").addEventListener("click", clearSearchTerms);
 });
+
+//Refresh background
+function updateBackground(){
+  document.body.style.background = "linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%)";
+}
+
+
+/*
+  Filters cards based off search terms/word cloud.
+*/
+function filterCards(){
+  //Get search terms from filterTerms. Dump into list
+  var searchTerms = document.getElementById("filterTerms").placeholder;
+  var patternTerms = buildRegexQuery(searchTerms)
+
+  //Create regex for terms - ignore case
+  var regexPattern = new RegExp(patternTerms, 'gim')
+
+  //Get list by ID
+  var recipeIDs = Object.keys(recipes)
+
+  //Loop through each recipes[ingredients] for search terms
+  recipeIDs.forEach( function(item, i){
+    //console.log(recipes[item]['ingredients']);
+
+    ingredientsToSearch = recipes[item]['ingredients']
+    ingredientsToSearch = ingredientsToSearch.replace(/\n/g,' ');
+
+    //Search terms in Ingredients
+    if ( ingredientsToSearch.match(regexPattern) ){
+      //Add card to list
+      addCard(item)
+    } else {
+      //Remove card from list
+      removeCard(item)
+    }
+    updateBackground()
+
+  });
+}
+
+
+function buildRegexQuery(termStr){
+  //Remove any spaces at the end
+  termStr = termStr.trim()
+
+  //Another attempt to remove characters at the end
+  termStr = termStr.replace(/[ |\t|\s]+$/gm, '');
+
+  terms = termStr.split(" ");
+
+  var pattern = "^";
+
+  for(var i=0; i < terms.length; i++){
+      pattern += "(?=.*\\b";
+      pattern += terms[i];
+      pattern += "\\b)";
+  }
+  pattern += ".+";
+  return pattern;
+}
+
+function removeCard(id){
+  if (document.contains(document.getElementById(id))) {
+    document.getElementById(id).remove();
+  }
+}
+
+function addCard(id){
+  if (document.contains(document.getElementById(id)) == false) {
+    buildRecipeCard(id)
+  }
+
+}
+
+//Builds the individual card in HTML
+function buildRecipeCard(id){
+
+  rName = recipes[id]['name']
+  rIngredients = recipes[id]['ingredients']
+  rDirections = recipes[id]['directions']
+  rNotes = recipes[id]['notes']
+  rID = id
+
+  var htmlToAdd = `<div class="recipe-card p-1 my-flex-item" id="${rID}">
+    <aside>
+      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
+    </aside>
+
+    <article>
+      <h2>${rName}</h2>
+      <h3>Drank</h3>
+
+      <p class="ingredients"><span>Ingredients: </span>${rIngredients}</p>
+      <p class="ingredients"><span>Directions: </span>${rDirections}</p>
+    </article>
+  </div>`
+
+  var div = document.getElementById('recipes');
+  div.innerHTML += htmlToAdd;
+}
 
 //Takes entire dictionary of recipes
 function buildRecipeCards(){
-  //console.log(recipe[0])
-
   //Loop through JSON by getting the keys (number)
-  Object.keys(recipes).forEach(function (rNumber) {
+  var recipeIDs = Object.keys(recipes)
 
-    //console.log( recipes[rNumber]['name'] )
-    rName = recipes[rNumber]['name']
-    rIngredients = recipes[rNumber]['ingredients']
-    rDirections = recipes[rNumber]['directions']
-    rNotes = recipes[rNumber]['notes']
-
-    var htmlToAdd = `<div class="recipe-card p-1 my-flex-item">
-      <aside>
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
-      </aside>
-
-      <article>
-        <h2>${rName}</h2>
-        <h3>Drank</h3>
-
-        <p class="ingredients"><span>Ingredients: </span>${rIngredients}</p>
-        <p class="ingredients"><span>Directions: </span>${rDirections}</p>
-      </article>
-    </div>`
-
-    var div = document.getElementById('recipes');
-    div.innerHTML += htmlToAdd;
-
+  recipeIDs.forEach( function(item, i){
+    buildRecipeCard(item);
   });
-
 }
 
 /*
@@ -125,9 +205,13 @@ function formatKeywords(){
 }
 
 function addIngredient(word){
-  console.log(word)
+  //console.log(word)
   word = word + " "
   document.getElementById("filterTerms").placeholder += word;
+}
+
+function clearSearchTerms(){
+  document.getElementById("filterTerms").placeholder = "";
 }
 
 /*
