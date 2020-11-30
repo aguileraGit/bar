@@ -67,8 +67,10 @@
       /* margin: 4em auto; */
       margin-top: 1em;
       margin-bottom: 1em;
-      width: 60%;
-      max-width: 260px;
+      margin-left: 1em;
+      margin-right: 1em;
+      /* width: 60%; */
+      max-width: 320px;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       border-bottom-left-radius: 5px;
@@ -196,8 +198,15 @@
         <!-- Word Cloud -->
         <div id="wordCloudWords"></div>
 
+        <!-- Display selected words -->
+        <div class="form-group row">
+        <div class="col-sm-10">
+          <label for="filterTerms" class="col-form-label">Click on ingredient to filter</label>
+          <input class="form-control" id="filterTerms" disabled>
+        </div>
+
         <!-- Recipes -->
-        <div id="recipes">
+        <div id="recipes" class="d-flex flex-row flex-wrap my-flex-container">
         </div>
         <!-- End recipe div -->
 

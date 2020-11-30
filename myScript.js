@@ -53,7 +53,7 @@ function buildRecipeCards(){
     rDirections = recipes[rNumber]['directions']
     rNotes = recipes[rNumber]['notes']
 
-    var htmlToAdd = `<div class="recipe-card">
+    var htmlToAdd = `<div class="recipe-card p-1 my-flex-item">
       <aside>
         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
       </aside>
@@ -74,24 +74,23 @@ function buildRecipeCards(){
 
 }
 
+/*
+ Loads recipes from external file. Calls function to build cards in html.
+ I believe this has to be this way because of race conditions.
+*/
 function loadRecipes(){
   $.ajax({
     dataType: "json",
     url: recipesFileName,
 
     success: function(response, status, xhr){
-      console.log(status)
-      //Dump to JSON
-      recipes = JSON.parse(response);
+      //console.log(status)
+      recipes = response;
 
       //Build cards based on entire dict
       buildRecipeCards()
     }
   });
-}
-
-function addIngredient(word){
-  console.log(word)
 }
 
 function formatWordCloud(){
@@ -109,24 +108,27 @@ function formatWordCloud(){
 */
 function formatKeywords(){
   keywordsArr = [
-    {"x": "Mandarin chinese", "value": 1090000000, category: "Sino-Tibetan"},
-    {"x": "English", "value": 983000000, category: "Indo-European"},
-    {"x": "Hindustani", "value": 544000000, category: "Indo-European"},
-    {"x": "Spanish", "value": 527000000, category: "Indo-European"},
-    {"x": "Arabic", "value": 422000000, category: "Afro-Asiatic"},
-    {"x": "Malay", "value": 281000000, category: "Austronesian"},
-    {"x": "Russian", "value": 267000000, category: "Indo-European"},
-    {"x": "Bengali", "value": 261000000, category: "Indo-European"},
-    {"x": "Portuguese", "value": 229000000, category: "Indo-European"},
-    {"x": "French", "value": 229000000, category: "Indo-European"},
-    {"x": "Hausa", "value": 150000000, category: "Afro-Asiatic"},
-    {"x": "Punjabi", "value": 148000000, category: "Indo-European"},
-    {"x": "Japanese", "value": 129000000, category: "Japonic"},
-    {"x": "German", "value": 129000000, category: "Indo-European"},
-    {"x": "Persian", "value": 121000000, category: "Indo-European"}
+    {"x": "Gin", "value": 1, category: "Base-spirit"},
+    {"x": "Rum", "value": 1, category: "Base-spirit"},
+    {"x": "Vodka", "value": 1, category: "Base-spirit"},
+    {"x": "Champange", "value": 1, category: "Base-spirit"},
+    {"x": "Whiskey", "value": 1, category: "Base-spirit"},
+    {"x": "Vermouth", "value": 2, category: "Aperitif"},
+    {"x": "Cherry Herring", "value": 2, category: "Aperitif"},
+    {"x": "Ferrnet", "value": 2, category: "Aperitif"},
+    {"x": "Amaro", "value": 2, category: "Aperitif"},
+    {"x": "Campari", "value": 2, category: "Aperitif"},
+    {"x": "Lime", "value": 3, category: "Citrus"},
+    {"x": "Lemon", "value": 3, category: "Citrus"},
+    {"x": "Grapefruit", "value": 3, category: "Citrus"},
   ];
 }
 
+function addIngredient(word){
+  console.log(word)
+  word = word + " "
+  document.getElementById("filterTerms").placeholder += word;
+}
 
 /*
   Load the keywords from a csv file to var keywordsArr
