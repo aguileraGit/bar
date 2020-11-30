@@ -1,7 +1,11 @@
 
-//
+//Keywords
 var keywordsFileName = "keywords.json"
 var keywordsArr;
+
+//Recipes
+var recipesFileName = "recipes.json"
+var recipes;
 
 //World Cloud - Chart
 var chart;
@@ -31,9 +35,60 @@ window.addEventListener('load', function() {
     addIngredient(ingredient)
   });
 
-  //Load recipies
+  //Load recipies & populate recipe cards
+  loadRecipes()
+
 });
 
+//Takes entire dictionary of recipes
+function buildRecipeCards(){
+  //console.log(recipe[0])
+
+  //Loop through JSON by getting the keys (number)
+  Object.keys(recipes).forEach(function (rNumber) {
+
+    //console.log( recipes[rNumber]['name'] )
+    rName = recipes[rNumber]['name']
+    rIngredients = recipes[rNumber]['ingredients']
+    rDirections = recipes[rNumber]['directions']
+    rNotes = recipes[rNumber]['notes']
+
+    var htmlToAdd = `<div class="recipe-card">
+      <aside>
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/oatmeal.jpg" alt="Chai Oatmeal" />
+      </aside>
+
+      <article>
+        <h2>${rName}</h2>
+        <h3>Drank</h3>
+
+        <p class="ingredients"><span>Ingredients: </span>${rIngredients}</p>
+        <p class="ingredients"><span>Directions: </span>${rDirections}</p>
+      </article>
+    </div>`
+
+    var div = document.getElementById('recipes');
+    div.innerHTML += htmlToAdd;
+
+  });
+
+}
+
+function loadRecipes(){
+  $.ajax({
+    dataType: "json",
+    url: recipesFileName,
+
+    success: function(response, status, xhr){
+      console.log(status)
+      //Dump to JSON
+      recipes = JSON.parse(response);
+
+      //Build cards based on entire dict
+      buildRecipeCards()
+    }
+  });
+}
 
 function addIngredient(word){
   console.log(word)
