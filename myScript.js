@@ -212,6 +212,8 @@ function addIngredient(word){
 
 function clearSearchTerms(){
   document.getElementById("filterTerms").placeholder = "";
+
+  buildRecipeCards()
 }
 
 /*
