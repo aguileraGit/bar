@@ -49,9 +49,18 @@
       background: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
     }
 
+    body:after {
+      background: rgb(34, 193, 195);
+      background: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+    }
+
     .modal-backdrop {
       opacity: 0.7 !important;
       background: rgb(120, 120, 120) !important;
+    }
+
+    .chartContainer {
+      height: 300px;
     }
 
 
@@ -196,7 +205,7 @@
         <h1 class="display-3 fancy-fonts text-center">Drinks. Drinks. Drinks.</h1>
 
         <!-- Word Cloud -->
-        <div id="wordCloudWords"></div>
+        <div class="h-300" id="wordCloudWords"></div>
 
         <!-- Display selected words -->
         <div class="form-group row">
