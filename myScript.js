@@ -10,10 +10,13 @@ var recipes;
 //World Cloud - Chart
 var chart;
 
+//Track filter terms
+var filterTermsOld;
+
 //Page load events
 window.addEventListener('load', function() {
 
-  //Load keywords
+  //Load keywords - Not working!
   loadKeywords()
 
   //Format keywordsArr
@@ -24,6 +27,16 @@ window.addEventListener('load', function() {
 
   //Format world cloud
   formatWordCloud()
+
+  // create and configure a color scale.
+  var customColorScale = anychart.scales.ordinalColor();
+  customColorScale.colors(["#00b8e6", "#e6b800", "#ff4d4d", "#418c53", "#7737ab", "#2e2e2e"]);
+
+  // set the color scale as the color scale of the chart
+  chart.colorScale(customColorScale);
+
+  // add a color range
+  chart.colorRange().enabled(true);
 
   //Display the word cloud chart
   chart.container("wordCloudWords");
@@ -39,7 +52,6 @@ window.addEventListener('load', function() {
   loadRecipes()
 
   //Tie the Filter button to a function
-  document.getElementById("filterButton").addEventListener("click", filterCards);
   document.getElementById("clearButton").addEventListener("click", clearSearchTerms);
 });
 
@@ -186,28 +198,26 @@ function formatWordCloud(){
 /*
   Format the keywords for the world cloud.
 */
-function formatKeywords(){
-  keywordsArr = [
-    {"x": "Gin", "value": 1, category: "Base-spirit"},
-    {"x": "Rum", "value": 1, category: "Base-spirit"},
-    {"x": "Vodka", "value": 1, category: "Base-spirit"},
-    {"x": "Champange", "value": 1, category: "Base-spirit"},
-    {"x": "Whiskey", "value": 1, category: "Base-spirit"},
-    {"x": "Vermouth", "value": 2, category: "Aperitif"},
-    {"x": "Cherry Herring", "value": 2, category: "Aperitif"},
-    {"x": "Ferrnet", "value": 2, category: "Aperitif"},
-    {"x": "Amaro", "value": 2, category: "Aperitif"},
-    {"x": "Campari", "value": 2, category: "Aperitif"},
-    {"x": "Lime", "value": 3, category: "Citrus"},
-    {"x": "Lemon", "value": 3, category: "Citrus"},
-    {"x": "Grapefruit", "value": 3, category: "Citrus"},
-  ];
+function formatKeywords(data){
+
+  keywordsArr = [{"x": "bourbon rye whiskey", "value": "1", "category": "alcohol"}, {"x": "Cointreau orange liqueur", "value": "1", "category": "liqueur"}, {"x": "sweet vermouth", "value": "1", "category": "spices_and_herbs"}, {"x": "squeezed lemon juice", "value": "1", "category": "fruit"}, {"x": "maraschino liqueur", "value": "1", "category": "liqueur"}, {"x": "grapefruit juice", "value": "1", "category": "fruit"}, {"x": "lime juice", "value": "1", "category": "fruit"}, {"x": "simple syrup", "value": "1", "category": "sweeteners"}, {"x": "grapefruit juice", "value": "1", "category": "fruit"}, {"x": "lemon juice", "value": "1", "category": "fruit"}, {"x": "Campari", "value": "1", "category": "alcohol"}, {"x": "simple syrup gin", "value": "1", "category": "alcohol"}, {"x": "sweet vermouth", "value": "1", "category": "spices_and_herbs"}, {"x": "dry vermouth", "value": "1", "category": "liqueur"}, {"x": "orange bitters bourbon", "value": "1", "category": "spices_and_herbs"}, {"x": "dry hard cider", "value": "1", "category": "alcohol"}, {"x": "ginger beer", "value": "1", "category": "alcohol"}, {"x": "Angostura bitters", "value": "1", "category": "alcohol"}, {"x": "Fresh lemon juice", "value": "1", "category": "fruit"}, {"x": "Simple syrup", "value": "1", "category": "sweeteners"}, {"x": "Huckleberry Shrub", "value": "1", "category": "fruit"}, {"x": "Egg white", "value": "1", "category": "fruit"}, {"x": "Huckleberries", "value": "1", "category": "unknown"}, {"x": "Cider vinegar", "value": "1", "category": "fruit"}, {"x": "Sugar gin", "value": "1", "category": "alcohol"}, {"x": "orgeat", "value": "1", "category": "sweeteners"}, {"x": "lemon juice", "value": "1", "category": "fruit"}, {"x": "Bitters blanco tequila", "value": "1", "category": "alcohol"}, {"x": "Kahlua Coffee Liqueur", "value": "1", "category": "liqueur"}, {"x": "fresh grapefruit juice", "value": "1", "category": "fruit"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "Cholula hot sauce", "value": "1", "category": "fruit"}, {"x": "Campari", "value": "1", "category": "alcohol"}, {"x": "Lemon Juice", "value": "1", "category": "fruit"}, {"x": "Orange Juice", "value": "1", "category": "fruit"}, {"x": "Espresso", "value": "1", "category": "alcohol"}, {"x": "Barspoons Dulce de Leche", "value": "1", "category": "unknown"}, {"x": "pineapple juice", "value": "1", "category": "fruit"}, {"x": "vodka", "value": "1", "category": "alcohol"}, {"x": "grenadine Ginger Beer", "value": "1", "category": "alcohol"}, {"x": "Bourbon", "value": "1", "category": "alcohol"}, {"x": "Blackberry Cordial", "value": "1", "category": "spices_and_herbs"}, {"x": "Lime Juice", "value": "1", "category": "fruit"}, {"x": "cherry liqueur", "value": "1", "category": "liqueur"}, {"x": "honey syrup limes", "value": "1", "category": "fruit"}, {"x": "caster sugar", "value": "1", "category": "sweeteners"}, {"x": "pisco", "value": "1", "category": "alcohol"}, {"x": "honey real maple syrup", "value": "1", "category": "alcohol"}, {"x": "vanilla extract", "value": "1", "category": "fruit"}, {"x": "ground nutmeg", "value": "1", "category": "fruit"}, {"x": "cold coffee espresso", "value": "1", "category": "alcohol"}, {"x": "dark rum Kahl\u00faa", "value": "1", "category": "alcohol"}, {"x": "cinnamon sugar rimming Pisco", "value": "1", "category": "sweeteners"}, {"x": "Aperol", "value": "1", "category": "alcohol"}, {"x": "Fresh Lemon Juice", "value": "1", "category": "fruit"}, {"x": "Simple Syrup", "value": "1", "category": "sweeteners"}, {"x": "Egg White", "value": "1", "category": "fruit"}, {"x": "Campari", "value": "1", "category": "alcohol"}, {"x": "Demerara syrup", "value": "1", "category": "alcohol"}, {"x": "Fresh pineapple juice", "value": "1", "category": "fruit"}, {"x": "Fresh lime juice", "value": "1", "category": "fruit"}, {"x": "mint leaves", "value": "1", "category": "fruit"}, {"x": "Pisco", "value": "1", "category": "alcohol"}, {"x": "blackberries", "value": "1", "category": "fruit"}, {"x": "St Germain Elderflower Liqueur", "value": "1", "category": "liqueur"}, {"x": "Large Marshmallows", "value": "1", "category": "unknown"}, {"x": "Nutella", "value": "1", "category": "unknown"}, {"x": "Marshmallow NutellaInfused Scotch", "value": "1", "category": "alcohol"}, {"x": "Snap Cordial liquer", "value": "1", "category": "alcohol"}, {"x": "Blackstrap Rum", "value": "1", "category": "alcohol"}, {"x": "grapefruit wedge", "value": "1", "category": "fruit"}, {"x": "fresh grapefruit juice", "value": "1", "category": "fruit"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "sugar", "value": "1", "category": "sweeteners"}, {"x": "mescal tequila", "value": "1", "category": "alcohol"}, {"x": "club soda Cynar", "value": "1", "category": "alcohol"}, {"x": "Montenegro", "value": "1", "category": "spices_and_herbs"}, {"x": "fresh juice limes", "value": "1", "category": "fruit"}, {"x": "ginger beer taste", "value": "1", "category": "alcohol"}, {"x": "Lime wheel two Chai", "value": "1", "category": "fruit"}, {"x": "half half", "value": "1", "category": "spices_and_herbs"}, {"x": "water", "value": "1", "category": "sweeteners"}, {"x": "Turbinado sugar", "value": "1", "category": "sweeteners"}, {"x": "dry vermouth", "value": "1", "category": "liqueur"}, {"x": "maraschino liqueur", "value": "1", "category": "liqueur"}, {"x": "honey", "value": "1", "category": "fruit"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "gin", "value": "1", "category": "alcohol"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "Benedictine", "value": "1", "category": "alcohol"}, {"x": "chilled club soda", "value": "1", "category": "alcohol"}, {"x": "Angostura bitters", "value": "1", "category": "alcohol"}, {"x": "Mint", "value": "1", "category": "fruit"}, {"x": "vodka", "value": "1", "category": "alcohol"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "Ginger beer blackberries", "value": "1", "category": "fruit"}, {"x": "fresh mint leaves", "value": "1", "category": "fruit"}, {"x": "simple syrup", "value": "1", "category": "sweeteners"}, {"x": "high quality gin", "value": "1", "category": "alcohol"}, {"x": "tonic water", "value": "1", "category": "sweeteners"}, {"x": "Casamigos Reposado Tequila", "value": "1", "category": "alcohol"}, {"x": "fresh lemon juice", "value": "1", "category": "fruit"}, {"x": "fresh pink grapefruit juice", "value": "1", "category": "fruit"}, {"x": "agave nectar", "value": "1", "category": "spices_and_herbs"}, {"x": "Fresh Lime Juice", "value": "1", "category": "fruit"}, {"x": "Raspberry Syrup", "value": "1", "category": "alcohol"}, {"x": "Ginger Beer top", "value": "1", "category": "alcohol"}, {"x": "Fresh Raspberries rye whiskey", "value": "1", "category": "fruit"}, {"x": "lemon juice", "value": "1", "category": "fruit"}, {"x": "blackberry jam", "value": "1", "category": "fruit"}, {"x": "pinch salt lemon", "value": "1", "category": "fruit"}, {"x": "gin", "value": "1", "category": "alcohol"}, {"x": "fresh lemon juice", "value": "1", "category": "fruit"}, {"x": "simple syrup", "value": "1", "category": "sweeteners"}, {"x": "Lemon Juice", "value": "1", "category": "fruit"}, {"x": "Fruit Jam Fruit Preserves", "value": "1", "category": "fruit"}, {"x": "Citrus Zest gin", "value": "1", "category": "fruit"}, {"x": "lemon juice", "value": "1", "category": "fruit"}, {"x": "lime juice", "value": "1", "category": "fruit"}, {"x": "simple syrup", "value": "1", "category": "sweeteners"}, {"x": "drops orange flower water", "value": "1", "category": "fruit"}, {"x": "cream", "value": "1", "category": "sweeteners"}, {"x": "egg white", "value": "1", "category": "fruit"}, {"x": "club soda milk", "value": "1", "category": "alcohol"}, {"x": "sugar", "value": "1", "category": "sweeteners"}, {"x": "cinnamon sticks", "value": "1", "category": "fruit"}, {"x": "whole cloves", "value": "1", "category": "fruit"}, {"x": "strong brewed coffee", "value": "1", "category": "alcohol"}, {"x": "pisco aguardiente grappa brandy", "value": "1", "category": "alcohol"}, {"x": "squeezed lime juice", "value": "1", "category": "fruit"}, {"x": "simple syrup", "value": "1", "category": "sweeteners"}, {"x": "aromatic bitters", "value": "1", "category": "fruit"}, {"x": "fresh blackberries", "value": "1", "category": "fruit"}, {"x": "sugar", "value": "1", "category": "sweeteners"}, {"x": "gin", "value": "1", "category": "alcohol"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "Club soda", "value": "1", "category": "alcohol"}, {"x": "sweet vermouth", "value": "1", "category": "spices_and_herbs"}, {"x": "Fernet Branca", "value": "1", "category": "alcohol"}, {"x": "orange bitters", "value": "1", "category": "fruit"}, {"x": "orange twist bourbon", "value": "1", "category": "spices_and_herbs"}, {"x": "T maple syrup", "value": "1", "category": "alcohol"}, {"x": "chocolate bitters", "value": "1", "category": "sweeteners"}, {"x": "orange bitters Bitter Bird", "value": "1", "category": "fruit"}, {"x": "Bulleit Bourbon", "value": "1", "category": "alcohol"}, {"x": "Campari", "value": "1", "category": "alcohol"}, {"x": "Owl's Brew CocoLada", "value": "1", "category": "alcohol"}, {"x": "Luxardo Maraschino Liqueur", "value": "1", "category": "alcohol"}, {"x": "Angosturra bitters", "value": "1", "category": "sweeteners"}, {"x": "Absinthe mint springs", "value": "1", "category": "alcohol"}, {"x": "gin", "value": "1", "category": "alcohol"}, {"x": "simple syrup", "value": "1", "category": "sweeteners"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "club soda Rosemary Syrup", "value": "1", "category": "alcohol"}, {"x": "water", "value": "1", "category": "sweeteners"}, {"x": "sugar", "value": "1", "category": "sweeteners"}, {"x": "Rosemary Gimlet", "value": "1", "category": "fruit"}, {"x": "gin", "value": "1", "category": "alcohol"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "rosemary syrup", "value": "1", "category": "spices_and_herbs"}, {"x": "fresh grapefruit juice", "value": "1", "category": "fruit"}, {"x": "fresh lime juice", "value": "1", "category": "fruit"}, {"x": "Cholula hot sauce", "value": "1", "category": "fruit"}, {"x": "Flaky salt pomegranate juice", "value": "1", "category": "fruit"}, {"x": "ruby port", "value": "1", "category": "spices_and_herbs"}, {"x": "orange bitters", "value": "1", "category": "fruit"}, {"x": "sparkling wine", "value": "1", "category": "liqueur"}, {"x": "Amaro Montenegro", "value": "1", "category": "spices_and_herbs"}, {"x": "Fresh Lemon Juice", "value": "1", "category": "fruit"}, {"x": "Raw Honey Syrup", "value": "1", "category": "sweeteners"}, {"x": "grapefruit juice", "value": "1", "category": "fruit"}, {"x": "pomegranate juice", "value": "1", "category": "fruit"}, {"x": "honey sugar agave", "value": "1", "category": "spices_and_herbs"}, {"x": "white tequila", "value": "1", "category": "spices_and_herbs"}, {"x": "mediumsized", "value": "1", "category": "unknown"}, {"x": "club soda seltzer", "value": "1", "category": "alcohol"}, {"x": "pomegranate arils", "value": "1", "category": "fruit"}];
+
+
 }
 
+//Adds word from word cloud to filter terms
 function addIngredient(word){
-  //console.log(word)
   word = word + " "
   document.getElementById("filterTerms").placeholder += word;
+
+  //Compare against old terms. If terms have changed, filter
+  var termMatch = word.localeCompare(filterTermsOld);
+
+  if (termMatch != 0){
+    filterTermsOld = word
+    //Apply filter
+    filterCards()
+  }
 }
 
 function clearSearchTerms(){
@@ -225,7 +235,8 @@ function loadKeywords(){
 	  url: keywordsFileName,
 	  dataType: "text",
 	  success: function(response){
-      var keywordsArr = parseCSV(response);
+      keywordsArr = response;
+      //console.log(keywordsArr)
     }
 	});
 }
