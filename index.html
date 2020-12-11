@@ -205,23 +205,37 @@
         <h1 class="display-3 fancy-fonts text-center">Drinks. Drinks. Drinks.</h1>
 
         <!-- Word Cloud -->
-        <div class="h-300" id="wordCloudWords"></div>
+        <div class="chartContainer pb-2" id="wordCloudWords"></div>
 
         <!-- Display selected words -->
-        <div class="form-group row">
-        <div class="col-sm-12">
-          <label for="filterTerms" class="col-form-label">Click on ingredient to filter</label>
-          <input class="form-control" id="filterTerms" disabled>
-          <button type="button" class="btn btn-dark" id="clearButton">Clear</button>
-        </div>
+        <div class="container">
+
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <!-- <label for="filterTerms" class="col-form-label">Click on ingredient to filter</label> -->
+                <input class="form-control mb-2" id="filterTerms" disabled>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-1">
+              <h4><span class="badge badge-light" id="cardCount">4</span></h4>
+            </div>
+
+            <div class="col-sm-11">
+                <button type="button" class="btn btn-dark" id="clearButton">Clear Search Terms</button>
+            </div>
+          </div>
+
+          </div>
+
 
         <!-- Recipes -->
-        <div id="recipes" class="d-flex flex-row flex-wrap my-flex-container">
-        </div>
+        <div id="recipes" class="d-flex flex-row flex-wrap my-flex-container"></div>
         <!-- End recipe div -->
 
+      </div>
 
-    </div>
   </main>
 
   <footer class="footer mt-auto py-3 align-middle">

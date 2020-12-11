@@ -6,6 +6,7 @@ var keywordsArr;
 //Recipes
 var recipesFileName = "recipes.json"
 var recipes;
+var recipeCount = 0;
 
 //World Cloud - Chart
 var chart;
@@ -119,14 +120,17 @@ function buildRegexQuery(termStr){
 function removeCard(id){
   if (document.contains(document.getElementById(id))) {
     document.getElementById(id).remove();
+    recipeCount = recipeCount - 1
   }
+  updateRecipeCount()
 }
 
 function addCard(id){
   if (document.contains(document.getElementById(id)) == false) {
     buildRecipeCard(id)
+    recipeCount = recipeCount + 1
   }
-
+  updateRecipeCount()
 }
 
 //Builds the individual card in HTML
@@ -163,7 +167,9 @@ function buildRecipeCards(){
 
   recipeIDs.forEach( function(item, i){
     buildRecipeCard(item);
+    recipeCount = recipeCount + 1;
   });
+  updateRecipeCount()
 }
 
 /*
@@ -183,6 +189,12 @@ function loadRecipes(){
       buildRecipeCards()
     }
   });
+}
+
+function updateRecipeCount(){
+
+  var div = document.getElementById('cardCount');
+  div.innerHTML = recipeCount;
 }
 
 function formatWordCloud(){
@@ -223,7 +235,15 @@ function addIngredient(word){
 function clearSearchTerms(){
   document.getElementById("filterTerms").placeholder = "";
 
-  buildRecipeCards()
+  //Clear out any cards before displaying all cards to avoid duplicates
+
+  //I think the counter issue is here. removeCard() doesn't check for a
+  // a card to be present. It just deletes them, but always counts.
+  var recipeIDs = Object.keys(recipes)
+  recipeIDs.forEach( function(item, i){
+    removeCard(item)
+  })
+  buildRecipeCards() //
 }
 
 /*
