@@ -10,6 +10,9 @@ var recipes;
 //World Cloud - Chart
 var chart;
 
+//Track filter terms
+var filterTermsOld;
+
 //Page load events
 window.addEventListener('load', function() {
 
@@ -203,10 +206,21 @@ function formatKeywords(data){
 
 }
 
+//Adds word from word cloud to filter terms
 function addIngredient(word){
-  //console.log(word)
   word = word + " "
   document.getElementById("filterTerms").placeholder += word;
+
+  //Compare against old terms. If terms have changed, filter
+  var termMatch = word.localeCompare(filterTermsOld);
+
+  if (termMatch != 0){
+    filterTermsOld = word
+    //Apply filter
+    filterCards()
+
+  }
+
 }
 
 function clearSearchTerms(){
