@@ -52,7 +52,6 @@ window.addEventListener('load', function() {
   loadRecipes()
 
   //Tie the Filter button to a function
-  document.getElementById("filterButton").addEventListener("click", filterCards);
   document.getElementById("clearButton").addEventListener("click", clearSearchTerms);
 });
 
@@ -218,9 +217,7 @@ function addIngredient(word){
     filterTermsOld = word
     //Apply filter
     filterCards()
-
   }
-
 }
 
 function clearSearchTerms(){
