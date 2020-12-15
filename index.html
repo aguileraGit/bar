@@ -36,6 +36,17 @@
       font-family: Comfortaa;
     }
 
+    html {
+      height: 100%;
+    }
+
+    body {
+        height: 100%;
+        margin: 0;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
     hr {
       margin-top: -1rem;
       margin-bottom: 1rem;
@@ -45,13 +56,23 @@
     }
 
     body {
-      background: rgb(34, 193, 195);
-      background: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -moz-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -ms-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -webkit-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -webkit-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -o-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image:  linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
     }
 
     body:after {
-      background: rgb(34, 193, 195);
-      background: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -moz-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -ms-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -webkit-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -webkit-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image: -o-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
+      background-image:  linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
     }
 
     .modal-backdrop {
@@ -120,9 +141,7 @@
       margin-left: 1em;
       line-height: 1em;
     }
-    .recipe-card article ul li:first-child {
-      margin-left: 0;
-    }
+
     .recipe-card article ul li .icon {
       vertical-align: bottom;
     }
@@ -210,20 +229,22 @@
         <!-- Display selected words -->
         <div class="container">
 
-          <div class="form-group row">
-            <div class="col-sm-12">
+          <div class="form-group row mb-3 mt-3">
+            <div class="col-sm-1">
+              <h3><span class="badge badge-secondary align-baseline" id="cardCount"></span></h3>
+            </div>
+            <div class="col-sm-11">
               <!-- <label for="filterTerms" class="col-form-label">Click on ingredient to filter</label> -->
-                <input class="form-control mb-2" id="filterTerms" disabled>
+                <input class="form-control align-middle" id="filterTerms" disabled>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-sm-1">
-              <h4><span class="badge badge-light" id="cardCount">4</span></h4>
-            </div>
-
-            <div class="col-sm-11">
+            <div class="col-sm-6">
                 <button type="button" class="btn btn-dark" id="clearButton">Clear Search Terms</button>
+            </div>
+            <div class="col-sm-6">
+                <!-- <button type="button" class="btn btn-dark" id="backspaceButton">Backspace</button> -->
             </div>
           </div>
 

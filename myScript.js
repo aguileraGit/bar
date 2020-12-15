@@ -54,11 +54,16 @@ window.addEventListener('load', function() {
 
   //Tie the Filter button to a function
   document.getElementById("clearButton").addEventListener("click", clearSearchTerms);
+
+  //Reload the background
+  updateBackground()
+
 });
 
 //Refresh background
 function updateBackground(){
-  document.body.style.background = "linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%)";
+  console.log("Updating background")
+  $("body").css("background","background-image: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);");
 }
 
 
@@ -91,9 +96,8 @@ function filterCards(){
       //Remove card from list
       removeCard(item)
     }
-    updateBackground()
-
   });
+  updateBackground()
 }
 
 
@@ -135,12 +139,14 @@ function addCard(id){
 
 //Builds the individual card in HTML
 function buildRecipeCard(id){
-
   rName = recipes[id]['name']
   rIngredients = recipes[id]['ingredients']
   rDirections = recipes[id]['directions']
   rNotes = recipes[id]['notes']
   rID = id
+
+  //Push rIngredients to ingredientsToHtml to return a nice html lis
+  rIngredients = ingredientsToHtml(rIngredients)
 
   var htmlToAdd = `<div class="recipe-card p-1 my-flex-item" id="${rID}">
     <aside>
@@ -158,6 +164,23 @@ function buildRecipeCard(id){
 
   var div = document.getElementById('recipes');
   div.innerHTML += htmlToAdd;
+}
+
+//Parse ingredients by \n to html list
+function ingredientsToHtml(ingredientsStr){
+
+  var elemets = ingredientsStr.split("\n");
+  //console.log(elemets)
+
+  var str = '<ul class="list-unstyled">'
+
+  elemets.forEach(function(element) {
+    str += '<li>'+ element + '</li>';
+  });
+
+  str += '</ul>';
+
+  return str
 }
 
 //Takes entire dictionary of recipes
