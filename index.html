@@ -84,7 +84,11 @@
       height: 300px;
     }
 
-
+    .ingredientElement {
+      margin: 1em 0 0.5em;
+      font-size: 0.8125em;
+      color: #222222;
+    }
 
     img {
       max-width: 100%;
@@ -106,13 +110,16 @@
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
     }
+
     .recipe-card aside {
       position: relative;
     }
+
     .recipe-card aside img {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
     }
+
     .recipe-card aside .button {
       background: #57abf2;
       display: inline-block;
@@ -131,27 +138,7 @@
     .recipe-card article {
       padding: 1.25em 1.5em;
     }
-    .recipe-card article ul {
-      list-style: none;
-      margin: 0.5em 0 0;
-      padding: 0;
-    }
-    .recipe-card article ul li {
-      display: inline-block;
-      margin-left: 1em;
-      line-height: 1em;
-    }
 
-    .recipe-card article ul li .icon {
-      vertical-align: bottom;
-    }
-    .recipe-card article ul li span:nth-of-type(2) {
-      margin-left: 0.5em;
-      font-size: 0.8em;
-      font-weight: 300;
-      vertical-align: middle;
-      color: #838689;
-    }
     .recipe-card article h2, .recipe-card article h3 {
       margin: 0;
       font-weight: 300;
@@ -240,11 +227,9 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <button type="button" class="btn btn-dark" id="clearButton">Clear Search Terms</button>
-            </div>
-            <div class="col-sm-6">
-                <!-- <button type="button" class="btn btn-dark" id="backspaceButton">Backspace</button> -->
+                <button type="button" class="btn btn-dark" id="backspaceButton">Backspace</button>
             </div>
           </div>
 

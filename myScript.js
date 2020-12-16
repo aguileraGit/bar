@@ -55,16 +55,9 @@ window.addEventListener('load', function() {
   //Tie the Filter button to a function
   document.getElementById("clearButton").addEventListener("click", clearSearchTerms);
 
-  //Reload the background
-  updateBackground()
-
+  //Tie the backspace button to a function
+  document.getElementById("backspaceButton").addEventListener("click", backspaceSearchTerms);
 });
-
-//Refresh background
-function updateBackground(){
-  console.log("Updating background")
-  $("body").css("background","background-image: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);");
-}
 
 
 /*
@@ -97,7 +90,6 @@ function filterCards(){
       removeCard(item)
     }
   });
-  updateBackground()
 }
 
 
@@ -157,7 +149,7 @@ function buildRecipeCard(id){
       <h2>${rName}</h2>
       <h3>Drank</h3>
 
-      <p class="ingredients"><span>Ingredients: </span>${rIngredients}</p>
+      <p><span>Ingredients: </span>${rIngredients}</p>
       <p class="ingredients"><span>Directions: </span>${rDirections}</p>
     </article>
   </div>`
@@ -172,10 +164,10 @@ function ingredientsToHtml(ingredientsStr){
   var elemets = ingredientsStr.split("\n");
   //console.log(elemets)
 
-  var str = '<ul class="list-unstyled">'
+  var str = '<ul>'
 
   elemets.forEach(function(element) {
-    str += '<li>'+ element + '</li>';
+    str += '<li class="ingredientElement my-0">'+ element + '</li>';
   });
 
   str += '</ul>';
@@ -266,7 +258,24 @@ function clearSearchTerms(){
   recipeIDs.forEach( function(item, i){
     removeCard(item)
   })
-  buildRecipeCards() //
+  buildRecipeCards()
+}
+
+function backspaceSearchTerms(){
+  var allWords = document.getElementById("filterTerms").placeholder;
+  terms = allWords.split(" ");
+  terms.pop() //Removes the last which is empty
+
+  //Remove term
+  terms.pop()
+
+  //Clear
+  clearSearchTerms()
+
+  //Put terms back into filterTerms and Filter
+  terms.forEach( function(term) {
+    addIngredient(term);
+  })
 }
 
 /*
