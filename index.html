@@ -208,7 +208,7 @@
     <!-- Main content -->
     <div class="container w-100">
 
-        <h1 class="display-3 fancy-fonts text-center">Drinks. Drinks. Drinks.</h1>
+        <h1 class="display-3 fancy-fonts text-center">Drinks. Drinks. Drinks. <a class="small text-danger" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter">About</a>.</h1>
 
         <!-- Word Cloud -->
         <div class="chartContainer pb-2" id="wordCloudWords"></div>
@@ -216,9 +216,9 @@
         <!-- Display selected words -->
         <div class="container">
 
-          <div class="form-group row mb-3 mt-3">
-            <div class="col-sm-1">
-              <h3><span class="badge badge-secondary align-baseline" id="cardCount"></span></h3>
+          <div class="form-group row my-3">
+            <div class="col-sm-1 align-middle">
+              <h3><span class="badge badge-secondary" id="cardCount"></span></h3>
             </div>
             <div class="col-sm-11">
               <!-- <label for="filterTerms" class="col-form-label">Click on ingredient to filter</label> -->
@@ -228,13 +228,12 @@
 
           <div class="row">
             <div class="col-sm-12">
-                <button type="button" class="btn btn-dark" id="clearButton">Clear Search Terms</button>
+                <button type="button" class="btn btn-dark mr-3" id="clearButton">Clear Search Terms</button>
                 <button type="button" class="btn btn-dark" id="backspaceButton">Backspace</button>
             </div>
           </div>
 
-          </div>
-
+        </div>
 
         <!-- Recipes -->
         <div id="recipes" class="d-flex flex-row flex-wrap my-flex-container"></div>
@@ -244,9 +243,41 @@
 
   </main>
 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <p>This amazing website is a combination of Python, Gensim, HTML, Bootstrap, Javascript, GitHub, Netlify, and others. It provides a simple way to filter down my collection of recipes by ingredients. All code is maintain in a <a href="https://github.com/aguileraGit/bar">Github Repo</a>.</p>
+          </div>
+          <div><p> The first script uses roughly 100 wikipedia articles as training data to <i>learn</i> about alcohols, types, herbs, spices, beer, and other assorted articles. Certain words (the, or, bar, history, tree, etc) were removed. This helps with training. The data is trained using the <a href="http://man.hubwiz.com/docset/gensim.docset/Contents/Resources/Documents/radimrehurek.com/gensim/index-2.html">Gensim Library</a>. The model is saved and used in the next step. This model can be used to describe a particular word or used to see how one word is to another.</p>
+
+          <p>The second step starts by pulling data from <a href="https://www.paprikaapp.com">Paprika App</a> which is used to store all recipes. It selects only recipes labelled by the Drinks UUID. All recipes are exported to a single JSON file.</p>
+
+          <p>The script continues to select all ingredients in all recipes. Lots of effort is put in to remove all measurements, numbers, special characters, words, phrases, etc. Most is done with regular expressions. Each ingredient is now passed through the model and categorize into <b>alcohol, liqueur, fruit, savory, herb, sweeteners</b>. Interesting thing about this model are herbs, spices, and sugar. Most types of alcohols contain herbs, spices, and sugar. The model had a hard time categorizing certain ingredients. For that reason an extra step of adding/multiplying weights was implemented. These weights helped to reduce the how often an ingredient was catergorized as an herb, spice, or sugar. Herbs and Spices were combined/averaged.</p>
+
+          <p>With each ingredient now catergorized, a JSON file of ingredients and catergories is exported</p>
+
+          <p>These recipes and ingredients are loaded into a Javascript file. The HTML file is built around this data struture. Each card is a recipe. The Word Cloud is the catergorized ingredients file. Selecting a word automatically filters all recipes by that word. This is again done with the help of regular expressions.</p>
+
+          <p>The HTML, Javascript, and JSON files are pushed to a GitHub repo. <a href="https://www.netlify.com">Netlify</a> is configured to pull these files and publish them as a normal webpage. Just because I can, I've setup <b>drinks</b>.aguilera.me to redirect to the Netlify specific address.</p>
+
+          <p> In full transperncy, I use Netlify to inject Google analytics. This isn't visible in the HTML/Javascript files on GitHub. Netlify injects this into the webpage when an update is pushed via GitHub. Don't worry, I'm not tracking your movements. It's simply nice to see people viewing something I made.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer mt-auto py-3 align-middle">
     <div class="container">
-      <span class="text-muted align-middle">Made with love. And booze.</span>
+      <span class="text-muted align-middle">Made with love. And booze. <a class="text-dark" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter">About.</a></span>
     </div>
   </footer>
 

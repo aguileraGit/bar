@@ -11,8 +11,9 @@ Still to do...
 - ~Add count~
 - Actually load JSON (recipes)
 - add about page
-- add backspace button
+- ~add backspace button~
 - add search by recipe name tab
+- Remove stupid image
 
 ## Other
 - add recipes from instagram
