@@ -57,6 +57,15 @@ window.addEventListener('load', function() {
 
   //Tie the backspace button to a function
   document.getElementById("backspaceButton").addEventListener("click", backspaceSearchTerms);
+
+  //Tie filterByRecipeName button
+  document.getElementById("filterRecipeByName").addEventListener("click", filterCardsByName);
+
+  //Tie filterRecipeByName button
+  document.getElementById("clearRecipeByName").addEventListener("click", clearCardsByName);
+
+  document.getElementById("filterRecipeByIngredients").addEventListener("click", filterCardsByIngredients);
+  document.getElementById("clearRecipeByIngredients").addEventListener("click", clearCardsByIngredients);
 });
 
 
@@ -92,6 +101,73 @@ function filterCards(){
   });
 }
 
+function filterCardsByName(){
+  var searchTerms = document.getElementById("termsByRecipeName").value;
+  var patternTerms = buildRegexQuery(searchTerms)
+
+  //Create regex for terms - ignore case
+  var regexPattern = new RegExp(patternTerms, 'gim')
+
+  //Get list by ID
+  var recipeIDs = Object.keys(recipes)
+
+  //Loop through each recipes[ingredients] for search terms
+  recipeIDs.forEach( function(item, i){
+    //console.log(recipes[item]['ingredients']);
+
+    ingredientsToSearch = recipes[item]['name']
+    ingredientsToSearch = ingredientsToSearch.replace(/\n/g,' ');
+
+    //Search terms in Ingredients
+    if ( ingredientsToSearch.match(regexPattern) ){
+      //Add card to list
+      addCard(item)
+    } else {
+      //Remove card from list
+      removeCard(item)
+    }
+  });
+}
+
+function filterCardsByIngredients(){
+  var searchTerms = document.getElementById("termsByIngredients").value;
+  var patternTerms = buildRegexQuery(searchTerms)
+
+  //Create regex for terms - ignore case
+  var regexPattern = new RegExp(patternTerms, 'gim')
+
+  //Get list by ID
+  var recipeIDs = Object.keys(recipes)
+
+  //Loop through each recipes[ingredients] for search terms
+  recipeIDs.forEach( function(item, i){
+    //console.log(recipes[item]['ingredients']);
+
+    ingredientsToSearch = recipes[item]['ingredients']
+    ingredientsToSearch = ingredientsToSearch.replace(/\n/g,' ');
+
+    //Search terms in Ingredients
+    if ( ingredientsToSearch.match(regexPattern) ){
+      //Add card to list
+      addCard(item)
+    } else {
+      //Remove card from list
+      removeCard(item)
+    }
+  });
+}
+
+function clearCardsByName(){
+  document.getElementById("termsByRecipeName").value = "";
+  filterCardsByName();
+  clearSearchTerms(); //Needed to reset the cards
+}
+
+function clearCardsByIngredients(){
+  document.getElementById("termsByIngredients").value = "";
+  filterCardsByIngredients();
+  clearSearchTerms(); //Needed to reset the cards
+}
 
 function buildRegexQuery(termStr){
   //Remove any spaces at the end
@@ -207,7 +283,6 @@ function loadRecipes(){
 }
 
 function updateRecipeCount(){
-
   var div = document.getElementById('cardCount');
   div.innerHTML = recipeCount;
 }

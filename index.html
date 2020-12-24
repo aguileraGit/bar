@@ -55,6 +55,10 @@
       width: 80%;
     }
 
+    .no-padding {
+       padding: 0;
+    }
+
     body {
       background-image: linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
       background-image: -moz-linear-gradient(151deg, rgba(34, 193, 195, 0.8547794117647058) 0%, rgba(253, 187, 45, 0.8911939775910365) 100%);
@@ -200,40 +204,117 @@
 
 </head>
 
-<body class="d-flex flex-column h-100">
+<body>
 
   <!-- Begin page content -->
-  <main role="main" class="flex-shrink-0">
+  <main role="main">
 
     <!-- Main content -->
-    <div class="container w-100">
+    <div class="container">
 
-        <h1 class="display-3 fancy-fonts text-center">Drinks. Drinks. Drinks. <a class="small text-danger" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter">About</a>.</h1>
+        <h1 class="display-3 fancy-fonts text-center">Drinks. Drinks. Drinks. <a class="small text-danger text-decoration-none" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter">About</a>.</h1>
 
-        <!-- Word Cloud -->
-        <div class="chartContainer pb-2" id="wordCloudWords"></div>
+        <!-- Carousel for different ways to filter recipes -->
+        <div class="no-padding col-lg-12  col-md-12 col-sm-12 col-xs-12">
+          <div id="carouselExampleCaptions" class="carousel slide" data-interval="false">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol>
 
-        <!-- Display selected words -->
-        <div class="container">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-block" style="height: 500px;">
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>AI selected words</h5>
+                    <!-- Word Cloud -->
+                    <div class="chartContainer pb-2" id="wordCloudWords"></div>
 
-          <div class="form-group row my-3">
-            <div class="col-sm-1 align-middle">
-              <h3><span class="badge badge-secondary" id="cardCount"></span></h3>
-            </div>
-            <div class="col-sm-11">
-              <!-- <label for="filterTerms" class="col-form-label">Click on ingredient to filter</label> -->
-                <input class="form-control align-middle" id="filterTerms" disabled>
-            </div>
+                    <!-- Display selected words -->
+                    <div class="container">
+
+                      <div class="form-group row my-3">
+                        <div class="col-sm-1 align-middle">
+                          <h3><span class="badge badge-secondary" id="cardCount"></span></h3>
+                        </div>
+                        <div class="col-sm-11">
+                            <input class="form-control align-middle" id="filterTerms" disabled>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-dark mr-3" id="clearButton">Clear Search Terms</button>
+                            <button type="button" class="btn btn-dark" id="backspaceButton">Backspace</button>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="d-block align-items-center justify-content-center" style="height: 200px;">
+                  <div class="carousel-caption">
+                    <h5>Search by Name</h5>
+
+                      <div class="form-group row my-3 ">
+                        <div class="col-sm-12">
+                            <input class="form-control" id="termsByRecipeName">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-dark mr-3" id="filterRecipeByName">Search by Recipe Name</button>
+                            <button type="button" class="btn btn-dark mr-3" id="clearRecipeByName">Clear </button>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="d-block align-items-center justify-content-center" style="height: 200px;">
+                  <div class="carousel-caption">
+                    <h5>Search by Ingredients <small class="text-white-50 text-uppercase">Seperated by spaces</small></h5>
+
+                      <div class="form-group row my-3 ">
+                        <div class="col-sm-12">
+                            <input class="form-control" id="termsByIngredients">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-dark mr-3" id="filterRecipeByIngredients">Filter by Ingredients</button>
+                            <button type="button" class="btn btn-dark mr-3" id="clearRecipeByIngredients">Clear </button>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div> <!-- End Carousel-inner -->
+
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
           </div>
-
-          <div class="row">
-            <div class="col-sm-12">
-                <button type="button" class="btn btn-dark mr-3" id="clearButton">Clear Search Terms</button>
-                <button type="button" class="btn btn-dark" id="backspaceButton">Backspace</button>
-            </div>
-          </div>
-
         </div>
+        <!-- End Carousel -->
+
 
         <!-- Recipes -->
         <div id="recipes" class="d-flex flex-row flex-wrap my-flex-container"></div>
