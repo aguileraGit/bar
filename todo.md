@@ -5,6 +5,7 @@ Still to do...
 - add about page
 - add search by recipe name tab
 - Remove stupid image
+- Cards should be centered
 
 ## Other
 - add recipes from instagram

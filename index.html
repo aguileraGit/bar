@@ -45,6 +45,8 @@
         margin: 0;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        margin:0;
+        padding:0;
     }
 
     hr {
@@ -57,6 +59,12 @@
 
     .no-padding {
        padding: 0;
+    }
+
+    #Container_Carousel{
+        margin:0;
+        padding:0;
+        width:100%;
     }
 
     body {
@@ -86,6 +94,9 @@
 
     .chartContainer {
       height: 300px;
+      margin:0;
+      padding:0;
+      width:100%;
     }
 
     .ingredientElement {
@@ -210,23 +221,23 @@
   <main role="main">
 
     <!-- Main content -->
-    <div class="container">
+    <div id="Container_Carousel">
 
         <h1 class="display-3 fancy-fonts text-center">Drinks. Drinks. Drinks. <a class="small text-danger text-decoration-none" href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter">About</a>.</h1>
 
         <!-- Carousel for different ways to filter recipes -->
-        <div class="no-padding col-lg-12  col-md-12 col-sm-12 col-xs-12">
-          <div id="carouselExampleCaptions" class="carousel slide" data-interval="false">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding">
+          <div id="carousel-example-generic" class="carousel slide" data-interval="false">
             <ol class="carousel-indicators">
-              <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-              <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
             </ol>
 
             <div class="carousel-inner">
               <div class="carousel-item active">
                 <div class="d-block" style="height: 500px;">
-                  <div class="carousel-caption d-none d-md-block">
+                  <div class="carousel-caption">
                     <h5>AI selected words</h5>
                     <!-- Word Cloud -->
                     <div class="chartContainer pb-2" id="wordCloudWords"></div>
@@ -302,11 +313,11 @@
 
             </div> <!-- End Carousel-inner -->
 
-            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#carousel-example-generic" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#carousel-example-generic" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
@@ -320,6 +331,7 @@
         <!-- End recipe div -->
 
       </div>
+    </div>
 
   </main>
 
